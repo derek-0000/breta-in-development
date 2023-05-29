@@ -7,6 +7,18 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors:{
+        'breta-blue':'#365C72',
+        'breta-dark-blue':'#1C2F3B',
+        'breta-gray':'#B2C0C9',
+        'breta-light-gray':'#DFDFDF',
+        'breta-dark-gray':'#668393',
+        'breta-green':'#29CC00',
+        'breta-light-green':'#A5D2BF',
+        'breta-dark-green':'#5A948A',
+        'breta-yellow':'#E0D81F',
+        'breta-orange':'#FF7A00',
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
