@@ -11,3 +11,10 @@ html, body
 {
   height: 100%;
 }
+.swiper-pagination-bullet {
+  z-index: 5;
+  width: 20px;
+  height: 20px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
