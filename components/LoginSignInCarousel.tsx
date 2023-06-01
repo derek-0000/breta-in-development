@@ -44,21 +44,21 @@ export default function LoginSignInCarousel() {
         modules={[Pagination, Navigation]}
         direction="horizontal"
         loop={true}
-        className="h-full"
+        className="relative w-full flex-1"
       >
         {images.map((image, index) => {
           return (
-            <SwiperSlide className="h-full">
+            <SwiperSlide className="relative h-full" key={index}>
               <div className="absolute bottom-10 left-10 flex flex-col text-white z-20">
                 <div className="text-2xl font-bold tracking-wide">
                   {image.title}
                 </div>
                 <div className="">{image.text}</div>
               </div>
-              <div className="absolute h-full w-full bg-gradient-to-bl from-transparent to-stone-900 z-40 opacity-30"></div>
+              <div className="bg-gradient-to-bl from-transparent to-stone-900 z-40 opacity-30"></div>
               <img
                 src={image.image}
-                className="transition ease-out object-cover w-full"
+                className="object-cover w-full"
               />
             </SwiperSlide>
           );

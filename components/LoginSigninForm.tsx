@@ -15,6 +15,20 @@ export default function LoginSigninForm() {
 
   const router = useRouter();
 
+  const headers = {
+    "content-type": "application/json",
+  };
+  
+  const passwordVisibilityHandler = () => {
+    passwordVisibilityRef == "password"
+      ? setpasswordVisibilityRef("text")
+      : setpasswordVisibilityRef("password");
+  };
+
+  const loginSigninErrorHandler = (result:any) =>{
+    return result.data != null ?  true : false
+  }
+  
   const SignIn = async (username: string, email: string, password: string) => {
     if (password == "" || email == "" || username == "") {
       return setSigninError("Por favor, llene ambos campos");
@@ -31,10 +45,6 @@ export default function LoginSigninForm() {
         email
       }
     }`;
-    const headers = {
-      "content-type": "application/json",
-    };
-
     const options = {
       method: "POST",
       headers: headers,
@@ -43,16 +53,17 @@ export default function LoginSigninForm() {
 
     try {
       const response = await fetch(URL, options);
-      const data = await response.json();
-      if (response.ok) {
-        router.push("/login");
+      const result = await response.json();
+      if (result.errors[0]) {
+        setSigninError(result.errors.message);
       } else {
-        setSigninError(data.errors.message);
+        router.push("/login");
       }
     } catch (error) {
       console.log(error);
     }
   };
+
   const Login = async (email: string, password: string) => {
     if (password == "" || email == "") {
       return setLoginError("Por favor, llene ambos campos");
@@ -70,9 +81,6 @@ export default function LoginSigninForm() {
               }
           }
       }`;
-    const headers = {
-      "content-type": "application/json",
-    };
     const options = {
       method: "POST",
       headers: headers,
@@ -81,24 +89,21 @@ export default function LoginSigninForm() {
     try {
       const response = await fetch(URL, options);
       const data = await response.json();
-      if (data.data.login) {
+      const result = data.data
+      if (result != null) {
         localStorage.setItem("token", data.data.login.access_token);
         router.push("/user");
       } else {
-        setLoginError(data.errors[0].message);
+        setLoginError(data.errors[0].extensions.originalError.message[0]);
       }
     } catch (err) {
       console.log(err);
     }
   };
-  const passwordVisibilityHandler = () => {
-    passwordVisibilityRef == "password"
-      ? setpasswordVisibilityRef("text")
-      : setpasswordVisibilityRef("password");
-  };
+  
 
   return (
-    <div className="flex flex-col justify-center h-full w-full">
+    <div className="flex flex-col justify-center items-center p-12 h-full w-full">
       <div className="text-breta-blue font-bold text-2xl my-4 text-center tracking-wider select-none ">
         {formState == "signin" ? "Bienvenido de vuelta a BRETA" : "Bienvenido a BRETA"}
       </div>
@@ -167,18 +172,18 @@ export default function LoginSigninForm() {
             />
           </div>
         )}
-        {loginError && (
-          <div className=" text-breta-orange text-sm">{loginError}</div>
-        )}
-        {signinError && (
-          <div className=" text-breta-orange text-sm">{signinError}</div>
-        )}
-        {formState == "login" ? (
+            {loginError && (
+              <div className=" text-breta-orange text-sm">{loginError}</div>
+            )}
+            {signinError && (
+              <div className=" text-breta-orange text-sm">{signinError}</div>
+            )}
+            {formState == "login" ? (
           <button
             type="button"
             onClick={(e) => Login(emailField.current, passwordField.current)}
             className="text-sm py-5 ring-1 tracking-wide font-bold ring-gray-300 bg-breta-blue hover:bg-breta-dark-blue rounded-md px-6 focus:outline-0 placeholder:text-sm text-gray-100"
-          >
+            >
             Iniciar Sesión
           </button>
         ) : (
