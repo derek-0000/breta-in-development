@@ -1,6 +1,4 @@
 "use client"
-import { useRef } from "react";
-import Link from "next/link";
 import LoginSignInCarousel from "@/components/LoginSignInCarousel";
 import LoginSigninForm from "@/components/LoginSigninForm";
 import LoginSigninHeader from "@/components/LoginSigninHeader";

@@ -5,23 +5,21 @@ import { useSwiper } from "swiper/react";
 import { useCallback, useRef } from "react";
 import { useState } from "react";
 import "swiper/css";
-import "swiper/css/pagination";
+import { PaginationOptions } from "swiper/types";
 
 export default function LoginSignInCarousel() {
   const swiper = useSwiper();
-  const [activeSlide, setActiveSlide] = useState(0);
-  const swiperRef = useRef(null);
   const images = [
     {
       image:
-        "/images/see-you-soon-cropped-shot-of-a-handsome-young-bar-2023-01-04-20-37-56-utc 1.png",
+      "/images/see-you-soon-cropped-shot-of-a-handsome-young-bar-2023-01-04-20-37-56-utc 1.png",
       title: "Gestiona tu salón y automatiza tus citas",
       text: "Con BRETA gestiona a tu equipo, los servicios que ofreces y la forma en la que gestionas tus citas.",
     },
     {
       image:
         "/images/hairdresser-checking-her-schedule-2022-04-27-01-52-24-utc 1.png",
-      title: "Monitorea tus estadísticas ",
+        title: "Monitorea tus estadísticas ",
       text: "Revisa tu progreso con gráficas claras y fáciles de entender, detecta áreas de oportunidad y aprovecha tus fortalezas.",
     },
     {
@@ -37,13 +35,22 @@ export default function LoginSignInCarousel() {
       text: "Con BRETA como pinto de venta, llegarás a más clientes y darás a conocer tus servicios y promociones.",
     },
   ];
+  const[ carouselPage, setCarouselPage] = useState<number>(0)
+  const pagination = {
+    clickable: true,
+    renderBullet: function (index: any, className: any) {
+      return `<span class="${className}"></span>`;
+    },
+  }
 
   return (
     <>
       <Swiper
-        modules={[Pagination, Navigation]}
+        modules={[Pagination]}
+        pagination={pagination}
         direction="horizontal"
         loop={true}
+        initialSlide={carouselPage}
         className="relative w-full flex-1"
       >
         {images.map((image, index) => {
@@ -58,16 +65,11 @@ export default function LoginSignInCarousel() {
               <div className="bg-gradient-to-bl from-transparent to-stone-900 z-40 opacity-30"></div>
               <img
                 src={image.image}
-                className="object-cover w-full"
+                className="h-full"
               />
             </SwiperSlide>
           );
         })}
-      <div className="absolute bottom-10 left-10 z-50">
-        {images.map((image, index) => {
-          return <button className="z-50" onClick={() => swiper.slideTo(index,30,true)}>{index}</button>;
-        })}
-      </div>
       </Swiper>
     </>
   );
