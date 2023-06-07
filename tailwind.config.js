@@ -20,6 +20,7 @@ module.exports = {
         'breta-orange':'#FF7A00',
       },
       backgroundImage: {
+        'image1':"url('/images/see-you-soon-cropped-shot-of-a-handsome-young-bar-2023-01-04-20-37-56-utc 1.png')",
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
