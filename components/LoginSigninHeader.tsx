@@ -2,7 +2,7 @@ const IconPack = require("../public/icons/Icons");
 const Icons = new IconPack();
 export default function LoginSigninHeader() {
     return(
-        <nav className="flex justify-between items-center px-24 py-4 w-full bg-breta-blue z-50">
+        <nav className="sm:flex justify-between items-center px-24 py-4 w-full sm:bg-breta-blue z-50 absolute top-0">
         <div>
           <Icons.MonochromaticLogo/>
         </div>

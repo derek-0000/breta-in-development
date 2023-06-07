@@ -1,14 +1,11 @@
 "use client";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper";
-import { useSwiper } from "swiper/react";
-import { useCallback, useRef } from "react";
+import { Pagination } from "swiper";
 import { useState } from "react";
 import "swiper/css";
-import { PaginationOptions } from "swiper/types";
 
 export default function LoginSignInCarousel() {
-  const swiper = useSwiper();
+   
   const images = [
     {
       image:
@@ -35,7 +32,6 @@ export default function LoginSignInCarousel() {
       text: "Con BRETA como pinto de venta, llegarás a más clientes y darás a conocer tus servicios y promociones.",
     },
   ];
-  const[ carouselPage, setCarouselPage] = useState<number>(0)
   const pagination = {
     clickable: true,
     renderBullet: function (index: any, className: any) {
@@ -50,7 +46,6 @@ export default function LoginSignInCarousel() {
         pagination={pagination}
         direction="horizontal"
         loop={true}
-        initialSlide={carouselPage}
         className="relative w-full flex-1"
       >
         {images.map((image, index) => {
