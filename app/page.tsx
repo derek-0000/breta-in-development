@@ -10,7 +10,7 @@ export default function Home() {
         <LoginSigninHeader />
 
         <div className="flex flex-col md:flex-row flex-1">
-          <div className="w-full md:w-2/3 h-full  bg-breta-gray">
+          <div className="w-full md:w-2/3 h-full">
             <LoginSignInCarousel />
           </div>
           <LoginSigninForm />

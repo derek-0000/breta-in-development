@@ -50,7 +50,7 @@ export default function LoginSignInCarousel() {
       >
         {images.map((image, index) => {
           return (
-            <SwiperSlide className={`relative h-full bg-image1`} key={index}>
+            <SwiperSlide className={`relative h-full bg-salonCarouselImage0`} key={index}>
               <div className="absolute bottom-10 left-10 flex flex-col text-white z-20">
                 <div className="text-2xl font-bold tracking-wide">
                   {image.title}

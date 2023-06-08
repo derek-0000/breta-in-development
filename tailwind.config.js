@@ -20,7 +20,10 @@ module.exports = {
         'breta-orange':'#FF7A00',
       },
       backgroundImage: {
-        'image1':"url('/images/see-you-soon-cropped-shot-of-a-handsome-young-bar-2023-01-04-20-37-56-utc 1.png')",
+        'salonCarouselImage0':"url('/images/see-you-soon-cropped-shot-of-a-handsome-young-bar-2023-01-04-20-37-56-utc 1.png')",
+        'salonCarouselImage1':"url('/images/hairdresser-checking-her-schedule-2022-04-27-01-52-24-utc 1.png')",
+        'salonCarouselImage2':"url('/images/dyeing-hair-in-hairdressing-salon-2021-08-26-15-43-19-utc 1.png')",
+        'salonCarouselImage3':"url('/images/asian-young-asian-woman-setting-open-sign-at-the-s-2022-12-16-03-21-34-utc 1.png')",
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
