@@ -11,7 +11,7 @@ export default function LoginSigninForm() {
   const passwordField = useRef<string>("");
   const passwordConfirm = useRef<string>("");
   const gender = useRef<string>("");
-  const dateOfBirth = useRef<string>("");
+  const dateOfBirth = useRef<Date>(new Date());
 
   const [passwordVisibilityRef, setpasswordVisibilityRef] =
     useState<string>("password");
@@ -19,6 +19,7 @@ export default function LoginSigninForm() {
   const [errors, setErrors] = useState<string[]>([]);
   const [hiddenStatus, setHiddenStatus] = useState<boolean>(false);
   const [signinStatus, setSigninStatus] = useState<number>(0);
+  const [partOneSignup, setPartOneSifgnup] = useState<any[]>([]);
   const router = useRouter();
 
   const headers = {
@@ -43,7 +44,7 @@ export default function LoginSigninForm() {
     password: string,
     passwordConfirm: string,
     gender: string,
-    dateOfBirth: string,
+    dateOfBirth: Date,
     cellphoneField: string
   ) => {
     if (
@@ -69,7 +70,7 @@ export default function LoginSigninForm() {
       createUser(createUserInput: {
         username: "${username}"
         full_name: "${username}"
-        email: "${password}"
+        email: "${email}"
         password: "${password}"
         gender: "${gender}"
         cellphone: "${cellphoneField}"
@@ -93,7 +94,9 @@ export default function LoginSigninForm() {
       const result = data.data;
       console.log(graphqlQuerry);
       if (result != null) {
-        router.push("/login");
+        setFormState("login")
+        setErrors([])
+        setpasswordVisibilityRef("password")
       } else if (result == null) {
         setErrors([]);
         setErrors((errors) => [
@@ -217,18 +220,17 @@ export default function LoginSigninForm() {
                       <div>
                         <label
                           className="relative block text-sm  leading-6 text-breta-blue font-medium w-full"
-                          htmlFor="celphoneField"
+                          htmlFor="dateOfBirthField"
                         >
                           Fecha de Nacimiento
                         </label>
                         <input
                           onChange={(e) =>
-                            (dateOfBirth.current = e.target.value)
+                            (dateOfBirth.current = new Date(e.target.value))
                           }
                           type="date"
-                          name="celphoneField"
+                          name="dateOfBirthField"
                           className="w-full px-2 text-sm ring-1 ring-gray-300 rounded-md p-2 bg-breta-light-gray focus:outline-0 text-gray-500  "
-                          placeholder="Número de celular"
                         />
                       </div>
                       <ul className="grid w-full gap-6 md:grid-cols-2">
@@ -362,7 +364,10 @@ export default function LoginSigninForm() {
                   {signinStatus == 0 ? (
                     <>
                       <button
-                        onClick={() => setSigninStatus(1)}
+                        onClick={() => {
+                          setSigninStatus(1);
+
+                        }}
                         className="self-end w-1/3 bg-breta-blue p-2 text-white rounded-md"
                       >
                         Siguiente
@@ -371,7 +376,10 @@ export default function LoginSigninForm() {
                   ) : (
                     <>
                       <button
-                        onClick={() => setSigninStatus(0)}
+                        onClick={() => {
+                          setSigninStatus(0);
+
+                        }}
                         className="self-end w-1/3 bg-breta-blue p-2 text-white rounded-md"
                       >
                         Anterior
@@ -449,8 +457,8 @@ export default function LoginSigninForm() {
                       emailField.current,
                       passwordField.current,
                       passwordConfirm.current,
-                      dateOfBirth.current,
                       gender.current,
+                      dateOfBirth.current,
                       cellphoneField.current
                     )
                   }
