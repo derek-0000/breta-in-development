@@ -48,19 +48,42 @@ export default function LoginSignInCarousel() {
         loop={true}
         className="w-full h-full"
       >
-        {images.map((image, index) => {
-          return (
-            <SwiperSlide className={`relative h-full bg-salonCarouselImage0`} key={index}>
+            <SwiperSlide className={`relative h-full bg-cover bg-salonCarouselImage0`}>
               <div className="absolute bottom-10 left-10 flex flex-col text-white z-20">
                 <div className="text-2xl font-bold tracking-wide">
-                  {image.title}
+                  {images[0].title}
                 </div>
-                <div className="">{image.text}</div>
+                <div className="">{images[0].text}</div>
               </div>
-              <div className="bg-gradient-to-bl from-transparent to-stone-900 z-40 opacity-30"></div>
+              <div className="bg-gradient-to-bl  from-transparent to-stone-900 z-40 opacity-30"></div>
             </SwiperSlide>
-          );
-        })}
+            <SwiperSlide className={`relative h-full bg-cover bg-salonCarouselImage1`}>
+              <div className="absolute bottom-10 left-10 flex flex-col text-white z-20">
+                <div className="text-2xl font-bold tracking-wide">
+                  {images[1].title}
+                </div>
+                <div className="">{images[1].text}</div>
+              </div>
+              <div className="bg-gradient-to-bl  from-transparent to-stone-900 z-40 opacity-30"></div>
+            </SwiperSlide>
+            <SwiperSlide className={`relative h-full bg-cover bg-salonCarouselImage2`}>
+              <div className="absolute bottom-10 left-10 flex flex-col text-white z-20">
+                <div className="text-2xl font-bold tracking-wide">
+                  {images[2].title}
+                </div>
+                <div className="">{images[2].text}</div>
+              </div>
+              <div className="bg-gradient-to-bl  from-transparent to-stone-900 z-40 opacity-30"></div>
+            </SwiperSlide>
+            <SwiperSlide className={`relative h-full bg-cover bg-salonCarouselImage3`}>
+              <div className="absolute bottom-10 left-10 flex flex-col text-white z-20">
+                <div className="text-2xl font-bold tracking-wide">
+                  {images[3].title}
+                </div>
+                <div className="">{images[3].text}</div>
+              </div>
+              <div className="bg-gradient-to-bl  from-transparent to-stone-900 z-40 opacity-30"></div>
+            </SwiperSlide>
       </Swiper>
     </>
   );

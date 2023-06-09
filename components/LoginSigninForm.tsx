@@ -94,9 +94,9 @@ export default function LoginSigninForm() {
       const result = data.data;
       console.log(graphqlQuerry);
       if (result != null) {
-        setFormState("login")
-        setErrors([])
-        setpasswordVisibilityRef("password")
+        setFormState("login");
+        setErrors([]);
+        setpasswordVisibilityRef("password");
       } else if (result == null) {
         setErrors([]);
         setErrors((errors) => [
@@ -233,8 +233,17 @@ export default function LoginSigninForm() {
                           className="w-full px-2 text-sm ring-1 ring-gray-300 rounded-md p-2 bg-breta-light-gray focus:outline-0 text-gray-500  "
                         />
                       </div>
-                      <ul className="grid w-full gap-6 md:grid-cols-2">
-                        <li>
+                      <label
+                        className="relative block text-sm  leading-6 text-breta-blue font-medium w-full"
+                        htmlFor="gender"
+                      >
+                        Sexo
+                      </label>
+                      <form
+                        name="gender"
+                        className="grid w-full gap-6 grid-cols-2"
+                      >
+                        <li className="list-none">
                           <input
                             onChange={() => (gender.current = "male")}
                             type="radio"
@@ -246,9 +255,9 @@ export default function LoginSigninForm() {
                           />
                           <label
                             htmlFor="hosting-small"
-                            className="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400"
+                            className="inline-flex items-center justify-center w-full p-5 text-breta-blue bg-breta-light-gray border border-gray-200 rounded-lg cursor-pointer peer-checked:border-breta-blue hover:bg-gray-100"
                           >
-                            <div className="block">
+                            <div className=" flex flex-col items-center">
                               <Icons.ManIcon />
 
                               <div className="w-full text-lg font-semibold">
@@ -257,7 +266,7 @@ export default function LoginSigninForm() {
                             </div>
                           </label>
                         </li>
-                        <li>
+                        <li className="list-none">
                           <input
                             onChange={() => (gender.current = "female")}
                             type="radio"
@@ -268,18 +277,17 @@ export default function LoginSigninForm() {
                           />
                           <label
                             htmlFor="hosting-big"
-                            className="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400"
+                            className="inline-flex items-center justify-center w-full p-5 text-breta-blue bg-breta-light-gray border border-gray-200 rounded-lg cursor-pointer peer-checked:border-breta-blue hover:bg-gray-100"
                           >
-                            <div className="block">
+                            <div className=" flex flex-col items-center">
                               <Icons.WomanIcon />
-
                               <div className="w-full text-lg font-semibold">
                                 Mujer
                               </div>
                             </div>
                           </label>
                         </li>
-                      </ul>
+                      </form>
                     </>
                   )}
                   {signinStatus == 1 && (
@@ -359,6 +367,60 @@ export default function LoginSigninForm() {
                           placeholder="Vuelve a escribir tu contraseña"
                         />
                       </div>
+                      <label
+                        className="relative block text-sm  leading-6 text-breta-blue font-medium w-full"
+                        htmlFor="userType"
+                      >
+                        Quien eres?
+                      </label>
+                      <form 
+                      name="userType"
+                      className="grid w-full gap-6 grid-cols-2">
+                        <li className="list-none">
+                          <input
+                            onChange={() => (gender.current = "male")}
+                            type="radio"
+                            id="hosting-small"
+                            name="hosting"
+                            value="hosting-small"
+                            className="hidden peer"
+                            required
+                          />
+                          <label
+                            htmlFor="hosting-small"
+                            className="inline-flex items-center justify-center w-full p-5 text-breta-blue bg-breta-light-gray border border-gray-200 rounded-lg cursor-pointer peer-checked:border-breta-blue hover:text-gray-600 hover:bg-gray-100"
+                          >
+                            <div className=" flex flex-col items-center">
+                              <Icons.ManIcon />
+
+                              <div className="w-full text-lg font-semibold">
+                                Un Cliente 
+                              </div>
+                            </div>
+                          </label>
+                        </li>
+                        <li className="list-none">
+                          <input
+                            onChange={() => (gender.current = "female")}
+                            type="radio"
+                            id="hosting-big"
+                            name="hosting"
+                            value="hosting-big"
+                            className="hidden peer"
+                          />
+                          <label
+                            htmlFor="hosting-big"
+                            className="inline-flex items-center justify-center w-full p-5 text-breta-blue bg-breta-light-gray border border-gray-200 rounded-lg cursor-pointer peer-checked:border-breta-blue hover:text-gray-600 hover:bg-gray-100"
+                          >
+                            <div className=" flex flex-col items-center">
+                              <Icons.SalonChairIcon />
+                              <div className="w-full text-lg font-semibold">
+                                Un Salon
+                              </div>
+                            </div>
+                          </label>
+                        </li>
+                      </form>
                     </>
                   )}
                   {signinStatus == 0 ? (
@@ -366,7 +428,6 @@ export default function LoginSigninForm() {
                       <button
                         onClick={() => {
                           setSigninStatus(1);
-
                         }}
                         className="self-end w-1/3 bg-breta-blue p-2 text-white rounded-md"
                       >
@@ -378,7 +439,6 @@ export default function LoginSigninForm() {
                       <button
                         onClick={() => {
                           setSigninStatus(0);
-
                         }}
                         className="self-end w-1/3 bg-breta-blue p-2 text-white rounded-md"
                       >
