@@ -158,7 +158,7 @@ export default function LoginSigninForm() {
   return (
     <>
       {hiddenStatus == false && (
-        <aside className="absolute rounded-t-2xl h-4/5 bottom-0 flex flex-col bg-white  w-full md:h-full md:relative md:w-1/3 z-10 md:rounded-l-2xl">
+        <aside className="absolute right-0 rounded-t-[3rem] h-4/5 bottom-0 flex flex-col bg-white w-full md:h-full md:w-[25%] z-10 md:rounded-l-[3rem]">
           <div className="relative flex flex-col justify-center items-center p-4 h-full w-full md:p-4 lg:p-6">
             <button
               className="absolute top-10 right-10 pointer md:hidden"
@@ -373,9 +373,10 @@ export default function LoginSigninForm() {
                       >
                         Quien eres?
                       </label>
-                      <form 
-                      name="userType"
-                      className="grid w-full gap-6 grid-cols-2">
+                      <form
+                        name="userType"
+                        className="grid w-full gap-6 grid-cols-2"
+                      >
                         <li className="list-none">
                           <input
                             onChange={() => (gender.current = "male")}
@@ -394,7 +395,7 @@ export default function LoginSigninForm() {
                               <Icons.ManIcon />
 
                               <div className="w-full text-lg font-semibold">
-                                Un Cliente 
+                                Un Cliente
                               </div>
                             </div>
                           </label>
@@ -423,7 +424,37 @@ export default function LoginSigninForm() {
                       </form>
                     </>
                   )}
-                  {signinStatus == 0 ? (
+                  <div className="flex my-2 items-center justify-center gap-4">
+                    <div
+                      className="cursor-pointer rotate-90"
+                      onClick={() => setSigninStatus(0)}
+                    ><Icons.Arrow /></div>
+                    {signinStatus == 0 ? (
+                      <>
+                        <div>
+                          <Icons.DotSelected />
+                        </div>
+                        <div>
+                          <Icons.Dot />
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div>
+                          <Icons.Dot />
+                        </div>
+                        <div>
+                          <Icons.DotSelected />
+                        </div>
+                      </>
+                    )}
+
+                    <div
+                      className="cursor-pointer -rotate-90"
+                      onClick={() => setSigninStatus(1)}
+                    ><Icons.Arrow /></div>
+                  </div>
+                  {/* {signinStatus == 0 ? (
                     <>
                       <button
                         onClick={() => {
@@ -445,7 +476,7 @@ export default function LoginSigninForm() {
                         Anterior
                       </button>
                     </>
-                  )}
+                  )} */}
                 </>
               )}
               {formState == "login" && (
@@ -543,9 +574,9 @@ export default function LoginSigninForm() {
                       Nueva cuenta
                     </a>
                   </div>
-                  <div className="mb-2 relative px-12 text-breta-blue text-center text-xs font-light select-none after:absolute after:h-px after:w-1/4 after:bg-breta-blue after:-left-5 after:bottom-2 before:absolute before:h-px before:w-1/4 before:bg-breta-blue before:-right-5 before:bottom-2">
+                  {/* <div className="mb-2 relative px-12 text-breta-blue text-center text-xs font-light select-none after:absolute after:h-px after:w-1/4 after:bg-breta-blue after:-left-5 after:bottom-2 before:absolute before:h-px before:w-1/4 before:bg-breta-blue before:-right-5 before:bottom-2">
                     O puedes iniciar sesion con:
-                  </div>
+                  </div> */}
                 </div>
               ) : (
                 <div>
@@ -558,13 +589,13 @@ export default function LoginSigninForm() {
                       Inicia Sesión
                     </a>
                   </div>
-                  <div className="mb-2 relative px-12 text-breta-blue text-center text-xs font-light select-none after:absolute after:h-px after:w-1/4 after:bg-breta-blue after:-left-5 after:bottom-2 before:absolute before:h-px before:w-1/4 before:bg-breta-blue before:-right-5 before:bottom-2">
+                  {/* <div className="mb-2 relative px-12 text-breta-blue text-center text-xs font-light select-none after:absolute after:h-px after:w-1/4 after:bg-breta-blue after:-left-5 after:bottom-2 before:absolute before:h-px before:w-1/4 before:bg-breta-blue before:-right-5 before:bottom-2">
                     O crea cuenta con:
-                  </div>
+                  </div> */}
                 </div>
               )}
               {/* Add signin/login logic with google/facebook */}
-              <button
+              {/* <button
                 type="submit"
                 className="w-full text-sm ring-1 ring-red-300 text-red-300 rounded-md py-2 px-6 focus:outline-0 placeholder:text-sm"
               >
@@ -575,7 +606,7 @@ export default function LoginSigninForm() {
                 className="w-full text-sm ring-1 ring-blue-300 text-blue-300  rounded-md py-2 px-6 focus:outline-0 placeholder:text-sm"
               >
                 Facebook
-              </button>
+              </button> */}
             </div>
           </div>
         </aside>
@@ -592,7 +623,7 @@ export default function LoginSigninForm() {
             >
               ¡Crear mi Cuenta!
             </button>
-            <div className="">
+            <div className="text-white">
               ¿Ya tienes cuenta?{" "}
               <span
                 onClick={() => {
