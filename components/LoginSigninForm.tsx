@@ -28,8 +28,8 @@ export default function LoginSigninForm() {
   };
 
   const renderErrors = (errors: any) => {
-    return errors.map(() => {
-      return <div className=" text-breta-orange font-sm mt-2">{errors}</div>;
+    return errors.map((error:string,index:number) => {
+      return <div key={index} className=" text-breta-orange font-sm mt-2">{errors}</div>;
     });
   };
 
