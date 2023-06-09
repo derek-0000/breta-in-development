@@ -1,16 +1,18 @@
 "use client";
-import { data } from "autoprefixer";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 const IconPack = require("../public/icons/Icons");
 const Icons = new IconPack();
 export default function LoginSigninForm() {
-  const usernameField = useRef<string>("");
-  const emailField = useRef<string>("");
-  const cellphoneField = useRef<string>("");
+
+  const [usernameField, setUsernameField] = useState<string>("");
+  const [emailField, setEmailField] = useState<string>("");
+  const [cellphoneField, setCellphoneField] = useState<string>("");
   const passwordField = useRef<string>("");
   const passwordConfirm = useRef<string>("");
-  const gender = useRef<string>("");
+  const [gender, setGender] = useState<string>("");
+  const [userType, setUserType] = useState<string>("");
+  const [stringDateOfBirth, setStringDateOfBirth] = useState<string>("")
   const dateOfBirth = useRef<Date>(new Date());
 
   const [passwordVisibilityRef, setpasswordVisibilityRef] =
@@ -19,7 +21,6 @@ export default function LoginSigninForm() {
   const [errors, setErrors] = useState<string[]>([]);
   const [hiddenStatus, setHiddenStatus] = useState<boolean>(false);
   const [signinStatus, setSigninStatus] = useState<number>(0);
-  const [partOneSignup, setPartOneSifgnup] = useState<any[]>([]);
   const router = useRouter();
 
   const headers = {
@@ -44,8 +45,8 @@ export default function LoginSigninForm() {
     password: string,
     passwordConfirm: string,
     gender: string,
-    dateOfBirth: Date,
-    cellphoneField: string
+    dateOfBirth: string,
+    cellphoneField?: string
   ) => {
     if (
       username == "" ||
@@ -53,8 +54,7 @@ export default function LoginSigninForm() {
       passwordConfirm == "" ||
       passwordConfirm == "" ||
       !gender ||
-      !dateOfBirth ||
-      cellphoneField == ""
+      !dateOfBirth 
     ) {
       setErrors([]);
       return setErrors((errors) => [
@@ -74,7 +74,7 @@ export default function LoginSigninForm() {
         password: "${password}"
         gender: "${gender}"
         cellphone: "${cellphoneField}"
-        birthday: "${dateOfBirth}"
+        birthday: "${new Date(stringDateOfBirth)}"
       }){
         user_id
         username
@@ -161,15 +161,36 @@ export default function LoginSigninForm() {
         <aside className="absolute right-0 rounded-t-[3rem] h-4/5 bottom-0 flex flex-col bg-white w-full md:h-full md:w-[25%] z-10 md:rounded-l-[3rem]">
           <div className="relative flex flex-col justify-center items-center p-4 h-full w-full md:p-4 lg:p-6">
             <button
-              className="absolute top-10 right-10 pointer md:hidden"
+              className="absolute top-5 right-5 pointer md:hidden"
               onClick={() => formVisibilityHandler()}
             >
-              X
+              <Icons.Quit />
             </button>
-            <div className="text-breta-blue font-bold text-2xl my-4 text-center tracking-wider select-none ">
-              {formState == "signin"
-                ? "Dinos quién eres"
-                : "Bienvenido a BRETA"}
+            <div className=" my-4 text-center tracking-wider select-none ">
+              <div className="hidden md:block">
+                {formState == "signin" ? (
+                  <>
+                    <div className="text-2xl text-breta-dark-blue mb- font-bold">Crea tu Cuenta</div>
+                    <div className="text-breta-dark-blue">
+                      Registrate con tus datos para que podamos personalizar tu
+                      cuenta.
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="text-2xl text-breta-dark-blue mb-2 font-bold">!Bienvenido de Nuevo¡</div>
+                    <div className="text-breta-dark-blue">
+                      Nos da gusto verte de vuelta. Inicia sesión con tu cuenta
+                      para comenzar.
+                    </div>
+                  </>
+                )}
+              </div>
+              <div className="visible md:hidden">
+                {formState == "signin"
+                  ? "Bienvenido  a BRETA"
+                  : "Bienvenido de vuelta a BRETA"}
+              </div>
             </div>
             <div className="flex flex-col gap-4 w-full">
               {formState == "signin" && (
@@ -181,7 +202,7 @@ export default function LoginSigninForm() {
                           className="relative text-breta-blue block text-sm font-semibold leading-6 select-none"
                           htmlFor="username"
                         >
-                          Nombre Completo
+                          Nombre Completo*
                           <div className="absolute left-3 top-8">
                             <Icons.UserIcon />
                           </div>
@@ -190,54 +211,61 @@ export default function LoginSigninForm() {
                         <input
                           required
                           onChange={(e) => {
-                            usernameField.current = e.target.value;
+                            setUsernameField(e.target.value);
                           }}
                           type="text"
                           name="username"
-                          className="w-full px-10 text-sm ring-1 ring-gray-300 rounded-md p-2 bg-breta-light-gray focus:outline-0 placeholder:text-sm placeholder:text-gray-500 "
+                          className="w-full px-10 text-sm ring-1 ring-gray-300 rounded-md p-2 bg-breta-light-gray focus:outline-0 placeholder:text-sm tracking-wider placeholder:text-gray-500 "
                           placeholder="Ingresa tu nombre"
+                          value={usernameField}
                         ></input>
                       </div>
                       <div>
                         <label
-                          className="relative block text-sm  leading-6 text-breta-blue font-medium w-full"
+                          className="relative text-breta-blue block text-sm font-semibold leading-6 select-none"
                           htmlFor="celphoneField"
                         >
                           Número de celular
-                          <div className="absolute left-3 top-8">
-                            {/* <Icons.PhoneIcon /> */}
+                          <div className="absolute left-3 top-8 bg-breta-light-gray z-50">
+                            <Icons.Cellphone />
                           </div>
                         </label>
                         <input
                           onChange={(e) =>
-                            (cellphoneField.current = e.target.value)
+                            (setCellphoneField(e.target.value))
                           }
+                          type="number"
                           name="celphoneField"
-                          className="w-full px-10 text-sm ring-1 ring-gray-300 rounded-md p-2 bg-breta-light-gray focus:outline-0 placeholder:text-sm placeholder:text-gray-500 "
+                          className="w-full px-10 text-sm ring-1 ring-gray-300 rounded-md p-2 bg-breta-light-gray focus:outline-0 placeholder:text-sm tracking-wider placeholder:text-gray-500 "
                           placeholder="Número de celular"
+                          value={cellphoneField}
                         />
                       </div>
                       <div>
                         <label
-                          className="relative block text-sm  leading-6 text-breta-blue font-medium w-full"
+                          className="relative text-breta-blue block text-sm font-semibold leading-6 select-none"
                           htmlFor="dateOfBirthField"
                         >
-                          Fecha de Nacimiento
+                          Fecha de Nacimiento*
+                          <div className="absolute right-3 top-8 bg-breta-light-gray z-50">
+                            <Icons.Calendar />
+                          </div>
                         </label>
                         <input
                           onChange={(e) =>
-                            (dateOfBirth.current = new Date(e.target.value))
+                            (setStringDateOfBirth(e.target.value))
                           }
                           type="date"
                           name="dateOfBirthField"
                           className="w-full px-2 text-sm ring-1 ring-gray-300 rounded-md p-2 bg-breta-light-gray focus:outline-0 text-gray-500  "
+                          value={stringDateOfBirth}
                         />
                       </div>
                       <label
-                        className="relative block text-sm  leading-6 text-breta-blue font-medium w-full"
+                        className="relative text-breta-blue block text-sm font-semibold leading-6 select-none"
                         htmlFor="gender"
                       >
-                        Sexo
+                        Sexo*
                       </label>
                       <form
                         name="gender"
@@ -245,14 +273,15 @@ export default function LoginSigninForm() {
                       >
                         <li className="list-none">
                           <input
-                            onChange={() => (gender.current = "male")}
+                            onChange={() => (setGender("male"))}
                             type="radio"
+                            value="hosting-small"
                             id="hosting-small"
                             name="hosting"
-                            value="hosting-small"
                             className="hidden peer"
+                            checked={gender==="male"}
                             required
-                          />
+                            />
                           <label
                             htmlFor="hosting-small"
                             className="inline-flex items-center justify-center w-full p-5 text-breta-blue bg-breta-light-gray border border-gray-200 rounded-lg cursor-pointer peer-checked:border-breta-blue hover:bg-gray-100"
@@ -268,11 +297,12 @@ export default function LoginSigninForm() {
                         </li>
                         <li className="list-none">
                           <input
-                            onChange={() => (gender.current = "female")}
+                            onChange={() => (setGender("female"))}
                             type="radio"
+                            value="hosting-big"
                             id="hosting-big"
                             name="hosting"
-                            value="hosting-big"
+                            checked={gender==="female"}
                             className="hidden peer"
                           />
                           <label
@@ -297,7 +327,7 @@ export default function LoginSigninForm() {
                           className="relative text-breta-blue block text-sm font-semibold leading-6 select-none"
                           htmlFor="email"
                         >
-                          Correo Electronico
+                          Correo Electronico*
                           <div className="absolute left-3 top-8">
                             <Icons.IconEmail />
                           </div>
@@ -306,12 +336,12 @@ export default function LoginSigninForm() {
                         <input
                           required
                           onChange={(e) =>
-                            (emailField.current = e.target.value)
+                            (setEmailField(e.target.value))
                           }
-                          type="email"
                           name="email"
-                          className="w-full px-10 text-sm ring-1 ring-gray-300 rounded-md p-2 bg-breta-light-gray focus:outline-0 placeholder:text-sm placeholder:text-gray-500 "
+                          className="w-full px-10 text-sm ring-1 ring-gray-300 rounded-md p-2 bg-breta-light-gray focus:outline-0 placeholder:text-sm tracking-wider placeholder:text-gray-500 "
                           placeholder="Ingresa tu correo electrónico"
+                          value={emailField}
                         ></input>
                       </div>
                       <div>
@@ -319,7 +349,7 @@ export default function LoginSigninForm() {
                           className="relative block text-sm font-semibold leading-6 text-breta-blue select-none"
                           htmlFor="password"
                         >
-                          Contraseña
+                          Contraseña*
                           <div className="absolute left-3 top-8">
                             <Icons.IconPassword />
                           </div>
@@ -337,16 +367,16 @@ export default function LoginSigninForm() {
                           }
                           type={passwordVisibilityRef}
                           name="password"
-                          className="w-full px-10 text-sm ring-1 ring-gray-300 rounded-md p-2 bg-breta-light-gray focus:outline-0 placeholder:text-sm placeholder:text-gray-500"
+                          className="w-full px-10 text-sm ring-1 ring-gray-300 rounded-md p-2 bg-breta-light-gray focus:outline-0 placeholder:text-sm tracking-wider placeholder:text-gray-500"
                           placeholder="Mayor a 8 caracteres"
                         />
                       </div>
                       <div>
                         <label
-                          className="relative block text-sm  leading-6 text-breta-blue font-medium w-full"
-                          htmlFor="celphoneField"
+                          className="relative text-breta-blue block text-sm font-semibold leading-6 select-none"
+                          htmlFor="passwordConfirm"
                         >
-                          Confirmar Contraseña
+                          Confirmar Contraseña*
                           <div className="absolute left-3 top-8">
                             <Icons.IconPassword />
                           </div>
@@ -363,15 +393,15 @@ export default function LoginSigninForm() {
                           }
                           type={passwordVisibilityRef}
                           name="passwordConfirm"
-                          className="w-full px-10 text-sm ring-1 ring-gray-300 rounded-md p-2 bg-breta-light-gray focus:outline-0 placeholder:text-sm placeholder:text-gray-500 "
+                          className="w-full px-10 text-sm ring-1 ring-gray-300 rounded-md p-2 bg-breta-light-gray focus:outline-0 placeholder:text-sm tracking-wider placeholder:text-gray-500 "
                           placeholder="Vuelve a escribir tu contraseña"
                         />
                       </div>
                       <label
-                        className="relative block text-sm  leading-6 text-breta-blue font-medium w-full"
+                        className="relative text-breta-blue block text-sm font-semibold leading-6 select-none"
                         htmlFor="userType"
                       >
-                        Quien eres?
+                        Quien eres?*
                       </label>
                       <form
                         name="userType"
@@ -379,12 +409,13 @@ export default function LoginSigninForm() {
                       >
                         <li className="list-none">
                           <input
-                            onChange={() => (gender.current = "male")}
+                            onChange={() => (setUserType("user"))}
                             type="radio"
                             id="hosting-small"
                             name="hosting"
                             value="hosting-small"
                             className="hidden peer"
+                            checked={userType === "user"}
                             required
                           />
                           <label
@@ -393,7 +424,6 @@ export default function LoginSigninForm() {
                           >
                             <div className=" flex flex-col items-center">
                               <Icons.ManIcon />
-
                               <div className="w-full text-lg font-semibold">
                                 Un Cliente
                               </div>
@@ -402,12 +432,13 @@ export default function LoginSigninForm() {
                         </li>
                         <li className="list-none">
                           <input
-                            onChange={() => (gender.current = "female")}
+                            onChange={() => (setUserType("salon"))}
                             type="radio"
                             id="hosting-big"
                             name="hosting"
                             value="hosting-big"
                             className="hidden peer"
+                            checked={userType === "salon"}
                           />
                           <label
                             htmlFor="hosting-big"
@@ -428,7 +459,9 @@ export default function LoginSigninForm() {
                     <div
                       className="cursor-pointer rotate-90"
                       onClick={() => setSigninStatus(0)}
-                    ><Icons.Arrow /></div>
+                    >
+                      <Icons.Arrow />
+                    </div>
                     {signinStatus == 0 ? (
                       <>
                         <div>
@@ -452,31 +485,10 @@ export default function LoginSigninForm() {
                     <div
                       className="cursor-pointer -rotate-90"
                       onClick={() => setSigninStatus(1)}
-                    ><Icons.Arrow /></div>
+                    >
+                      <Icons.Arrow />
+                    </div>
                   </div>
-                  {/* {signinStatus == 0 ? (
-                    <>
-                      <button
-                        onClick={() => {
-                          setSigninStatus(1);
-                        }}
-                        className="self-end w-1/3 bg-breta-blue p-2 text-white rounded-md"
-                      >
-                        Siguiente
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      <button
-                        onClick={() => {
-                          setSigninStatus(0);
-                        }}
-                        className="self-end w-1/3 bg-breta-blue p-2 text-white rounded-md"
-                      >
-                        Anterior
-                      </button>
-                    </>
-                  )} */}
                 </>
               )}
               {formState == "login" && (
@@ -494,11 +506,12 @@ export default function LoginSigninForm() {
                     </label>
                     <input
                       required
-                      onChange={(e) => (emailField.current = e.target.value)}
+                      onChange={(e) => (setEmailField(e.target.value))}
                       type="email"
                       name="email"
-                      className="w-full px-10 text-sm ring-1 ring-gray-300 rounded-md p-2 bg-breta-light-gray focus:outline-0 placeholder:text-sm placeholder:text-gray-500 "
+                      className="w-full px-10 text-sm ring-1 ring-gray-300 rounded-md p-2 bg-breta-light-gray focus:outline-0 placeholder:text-sm tracking-wider placeholder:text-gray-500 "
                       placeholder="Ingresa tu correo electrónico"
+                      value={emailField}
                     ></input>
                   </div>
                   <div>
@@ -522,7 +535,7 @@ export default function LoginSigninForm() {
                       onChange={(e) => (passwordField.current = e.target.value)}
                       type={passwordVisibilityRef}
                       name="password"
-                      className="w-full px-10 text-sm ring-1 ring-gray-300 rounded-md p-2 bg-breta-light-gray focus:outline-0 placeholder:text-sm placeholder:text-gray-500"
+                      className="w-full px-10 text-sm ring-1 ring-gray-300 rounded-md p-2 bg-breta-light-gray focus:outline-0 placeholder:text-sm tracking-wider placeholder:text-gray-500"
                       placeholder="Mayor a 8 caracteres"
                     />
                   </div>
@@ -533,7 +546,7 @@ export default function LoginSigninForm() {
                 <button
                   type="button"
                   onClick={(e) =>
-                    Login(emailField.current, passwordField.current)
+                    Login(emailField, passwordField.current)
                   }
                   className="text-sm py-5 ring-1 tracking-wide font-bold ring-gray-300 bg-breta-blue hover:bg-breta-dark-blue rounded-md px-6 focus:outline-0 placeholder:text-sm text-gray-100"
                 >
@@ -544,13 +557,13 @@ export default function LoginSigninForm() {
                   type="button"
                   onClick={(e) =>
                     SignIn(
-                      usernameField.current,
-                      emailField.current,
+                      usernameField,
+                      emailField,
                       passwordField.current,
                       passwordConfirm.current,
-                      gender.current,
-                      dateOfBirth.current,
-                      cellphoneField.current
+                      gender,
+                      stringDateOfBirth,
+                      cellphoneField
                     )
                   }
                   className="text-sm py-5 ring-1 tracking-wide font-bold ring-gray-300 bg-breta-blue hover:bg-breta-dark-blue rounded-md px-6 focus:outline-0 placeholder:text-sm text-gray-100"
@@ -565,11 +578,14 @@ export default function LoginSigninForm() {
             <div className="flex flex-col items-center gap-4 my-4 w-full">
               {formState == "login" ? (
                 <div>
-                  <div className="mb-2 text-breta-blue font-light select-none">
+                  <div className="mb-2 text-breta-blue font-light select-none text-center">
                     Tambien puedes crear una{" "}
                     <a
                       className="font-bold cursor-pointer"
-                      onClick={() => setFormState("signin")}
+                      onClick={() => {
+                        setFormState("signin")
+                        setErrors([])
+                      }}
                     >
                       Nueva cuenta
                     </a>
@@ -584,7 +600,10 @@ export default function LoginSigninForm() {
                     Si ya tienes una cuenta{" "}
                     <a
                       className="font-bold cursor-pointer"
-                      onClick={() => setFormState("login")}
+                      onClick={() => {
+                        setFormState("login")
+                        setErrors([])
+                      }}
                     >
                       Inicia Sesión
                     </a>
@@ -619,7 +638,7 @@ export default function LoginSigninForm() {
                 setHiddenStatus(false);
                 setFormState("signin");
               }}
-              className="w-full text-sm py-5 ring-1 tracking-wide font-bold ring-gray-300 bg-breta-blue hover:bg-breta-dark-blue rounded-md px-6 focus:outline-0 placeholder:text-sm text-gray-100"
+              className="w-full text-sm py-5 ring-1 tracking-wide font-bold ring-gray-300 bg-white md:bg-breta-blue hover:bg-breta-dark-blue rounded-md px-6 focus:outline-0 placeholder:text-sm text-breta-blue md:text-gray-100"
             >
               ¡Crear mi Cuenta!
             </button>
