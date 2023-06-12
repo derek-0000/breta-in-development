@@ -77,11 +77,8 @@ export default function LoginSigninForm() {
         birthday: "${new Date(stringDateOfBirth)}"
       }){
         user_id
-        username
-        email
       }
     }`;
-    console.log(graphqlQuerry);
     const options = {
       method: "POST",
       headers: headers,
@@ -122,8 +119,7 @@ export default function LoginSigninForm() {
             }){
                 access_token
                 user{ 
-                    username
-                    email
+                    id_user
                 }
             }
         }`;
