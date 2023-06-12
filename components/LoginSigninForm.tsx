@@ -68,7 +68,6 @@ export default function LoginSigninForm() {
     const URL: string = "https://breta-api.up.railway.app/graphql";
     const graphqlQuerry: string = `mutation{
       createUser(createUserInput: {
-        username: "${username}"
         full_name: "${username}"
         email: "${email}"
         password: "${password}"
