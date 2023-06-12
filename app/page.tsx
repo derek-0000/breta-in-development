@@ -9,7 +9,7 @@ export default function Home() {
       <div className="flex flex-col h-[100vh]">
         <LoginSigninHeader />
         <div className="relative flex flex-col flex-1">
-          <div className="w-full md:w-4/5 h-full">
+          <div className="w-full md:3/5 lg:w-4/5 h-full">
             <LoginSignInCarousel />
           </div>
           <LoginSigninForm />

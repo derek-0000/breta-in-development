@@ -68,7 +68,7 @@ export default function LoginSignInCarousel() {
         <SwiperSlide
           className={`relative h-full w-full bg-cover bg-MobileCarouselImage0 md:bg-salonCarouselImage0`}
         >
-          <div className="absolute bottom-10 left-10 md:flex flex-col text-white z-20 hidden md:visible">
+          <div className="absolute bottom-10 left-10 md:flex flex-col text-white z-20 hidden md:visible md:w-[50%] xl:w-[60%]">
             <div className="text-2xl font-bold tracking-wide">
               {salonText[0].title}
             </div>
@@ -83,7 +83,7 @@ export default function LoginSignInCarousel() {
         <SwiperSlide
           className={`relative h-full bg-cover bg-MobileCarouselImage1 md:bg-salonCarouselImage1`}
         >
-          <div className="absolute bottom-10 left-10 md:flex flex-col text-white z-20 hidden md:visible">
+          <div className="absolute bottom-10 left-10 md:flex flex-col text-white z-20 hidden md:visible md:w-[50%] xl:w-[60%]">
             <div className="text-2xl font-bold tracking-wide">
               {salonText[1].title}
             </div>
@@ -98,7 +98,7 @@ export default function LoginSignInCarousel() {
         <SwiperSlide
           className={`relative h-full bg-cover bg-MobileCarouselImage2 md:bg-salonCarouselImage2`}
         >
-          <div className="absolute bottom-10 left-10 md:flex flex-col text-white z-20 hidden md:visible">
+          <div className="absolute bottom-10 left-10 md:flex flex-col text-white z-20 hidden md:visible md:w-[50%] xl:w-[60%]">
             <div className="text-2xl font-bold tracking-wide">
               {salonText[2].title}
             </div>
@@ -113,7 +113,7 @@ export default function LoginSignInCarousel() {
         <SwiperSlide
           className={`relative h-full bg-cover bg-MobileCarouselImage3 md:bg-salonCarouselImage3`}
         >
-          <div className="absolute bottom-10 left-10 md:flex flex-col text-white z-20 hidden md:visible">
+          <div className="absolute bottom-10 left-10 md:flex flex-col text-white z-20 hidden md:visible md:w-[50%] xl:w-[60%]">
             <div className="text-2xl font-bold tracking-wide">
               {salonText[3].title}
             </div>
