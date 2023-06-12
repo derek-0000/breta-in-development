@@ -118,7 +118,7 @@ export default function LoginSigninForm() {
             }){
                 access_token
                 user{ 
-                    id_user
+                  user_id
                 }
             }
         }`;
